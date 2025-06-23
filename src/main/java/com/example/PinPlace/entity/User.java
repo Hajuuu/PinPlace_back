@@ -19,7 +19,7 @@ public class User {
     private String loginId;
     private String password;
     private String nickname;
-    private String image;
+    private String profileImage;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
@@ -29,4 +29,19 @@ public class User {
     @OneToMany(mappedBy = "userToken", cascade = CascadeType.ALL)
     private final List<RefreshToken> refreshTokens = new ArrayList<>();
 
+    public void changeNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateProfileImage(String imageUrl) {
+        this.profileImage = imageUrl;
+    }
+
+    public void removeProfileImage() {
+        this.profileImage = null;
+    }
 }
