@@ -8,7 +8,6 @@ import com.example.PinPlace.entity.User;
 import com.example.PinPlace.exception.RefreshTokenExpiredException;
 import com.example.PinPlace.jwt.JwtTokenProvider;
 import com.example.PinPlace.repository.RefreshTokenRepository;
-import com.example.PinPlace.repository.UserRepository;
 import com.example.PinPlace.security.CustomUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +22,6 @@ import java.time.LocalDateTime;
 public class AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManager authenticationManager;
 
@@ -66,7 +64,7 @@ public class AuthService {
 
         token.expire();
         refreshTokenRepository.save(token);
-        
+
         User user = token.getUserToken();
         String newAccessToken = jwtTokenProvider.createAccessToken(user.getId(), user.getRole().name());
 
